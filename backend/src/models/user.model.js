@@ -25,10 +25,13 @@ const userSchema = new mongoose.Schema(
       type: Number,
       default: 0,
     },
+    refreshToken: {
+      type: String,
+    },
   },
   {
     timestamps: true,
   }
 );
 
-export const User = mongoose.model("User", userSchema);
+module.exports = mongoose.model("User", userSchema);
