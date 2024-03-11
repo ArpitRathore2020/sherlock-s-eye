@@ -6,9 +6,7 @@ const cat = ["Theft", "Murder", "Kidnapping", "Blackmailing"];
 function Categories() {
   const { expanded, setExpanded } = useContext(ExpandedContext);
   return (
-    <div
-      className={`flex-col bg-gray-700 ${expanded ? "h-screen" : "text-wrap"}`}
-    >
+    <div className={`flex-col bg-gray-700 h-screen`}>
       <b>CATEGORIES</b>
       {/* displaying all the available categories of crime that we have */}
       {cat.map((category, key) => {

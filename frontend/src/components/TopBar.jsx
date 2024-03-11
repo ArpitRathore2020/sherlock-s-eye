@@ -31,17 +31,11 @@ function TopBar({ loggedIn }) {
         </div>
 
         <div className="flex">
-          {/* if someone want to add leads */}
-          <button className="bg-red-500 hover:bg-red-800 m-2 text-white rounded-xl p-3">
-            ADD LEADS+
-          </button>
           {/* profile */}
           <img
-            className="rounded-full py-2 mx-4"
+            className="rounded-full py-2 mx-4 w-16 h-16"
             src="https://picsum.photos/200"
             alt="image here"
-            height={40}
-            width={40}
           ></img>
         </div>
       </div>

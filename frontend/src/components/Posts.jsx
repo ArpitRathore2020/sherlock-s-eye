@@ -1,3 +1,7 @@
+import { useState } from "react";
+import AddLeads from "./AddLead";
+import PostModal from "./PostModal";
+
 const posts = [
   {
     authorID: 234,
@@ -61,9 +65,12 @@ const posts = [
 // the input data will be something as follows
 
 function Posts() {
+  const [isModalOpen, setIsModalOpen] = useState(false);
   return (
     <div className="bg-gray-700 h-screen overflow-auto p-5">
-      <b>POSTS</b>
+      <AddLeads setIsModalOpen={setIsModalOpen} />
+      <PostModal isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen} />
+      <hr className="m-8 bg-gray-500"></hr>
       {posts.map((post, key) => {
         return (
           <Post
