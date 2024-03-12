@@ -5,11 +5,30 @@ import Posts from "./Posts";
 import SideBar from "./SideBar";
 import ExpandedContext from "./context";
 import ChatSection from "./ChatSection";
-import { useState } from "react";
+import { Link, useNavigate, useLocation } from "react-router-dom";
+import { useEffect, useState } from "react";
+import axios from "axios";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BASE_URL } from "../constants/helper";
+import Cookies from "universal-cookie";
 
 function Home() {
+  const cookie = new Cookies();
+  const navigate = useNavigate();
   const [expanded, setExpanded] = useState(false);
+
+  //   useEffect(() => {
+  axios
+    .get(`${BASE_URL}/get`, {
+      headers: {
+        "X-Custom-Header": "value",
+        Authorization: `Bearer ${cookie.get("jwt_auth")}`,
+      },
+    })
+    .then((response) => {})
+    .catch((error) => navigate("/"));
+  //   }, []);
+
   return (
     <div className="flex-col h-full bg-gray-400">
       <ExpandedContext.Provider value={{ expanded, setExpanded }}>

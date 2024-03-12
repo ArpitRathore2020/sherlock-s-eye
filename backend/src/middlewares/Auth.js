@@ -4,6 +4,7 @@ require("dotenv").config();
 
 // authenticates the user with the provided token
 exports.auth = async (req, res, next) => {
+  console.log(req.headers);
   if (
     req.headers.authorization &&
     req.headers.authorization.startsWith("Bearer ")
@@ -12,6 +13,12 @@ exports.auth = async (req, res, next) => {
       const token = req.headers.authorization.split(" ")[1];
       const decoded = jwt.verify(token, process.env.JWT_SECRET);
       req.user = await User.findById(decoded.id);
+      if (!req.user || !req.user.isEmailVerified) {
+        return res.status.json(401).json({
+          success: false,
+          message: "Email Not verified",
+        });
+      }
       next();
     } catch (error) {
       console.log(error);

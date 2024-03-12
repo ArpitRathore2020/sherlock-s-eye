@@ -1,15 +1,17 @@
 const express = require("express");
 const router = express.Router();
-require("../../../frontend/node_modules/dotenv/lib/main").config();
+require("dotenv").config();
 
-const { login, signup } = require("../controllers/auth");
+const { login, signup, verification } = require("../controllers/auth");
 const { auth } = require("../middlewares/Auth");
 
 router.post("/login", login);
 router.post("/signup", signup);
+router.post("/verifyEmail", verification);
 
 // Test Authentication
-router.post("/get", auth, (req, res) => {
+router.get("/get", auth, (req, res) => {
+  console.log("At /get");
   return res.json({
     message: "Authentication Test successful",
     success: true,
