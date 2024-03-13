@@ -98,6 +98,11 @@ function Post({ text, author, image, title }) {
           height={30}
         ></img>
         <i className="px-5">{author}</i>
+        <div className="flex justify-end w-full">
+          <button className="bg-red-400 p-2 rounded-xl hover:bg-red-500">
+            <i>send message</i>
+          </button>
+        </div>
       </div>
       <div>
         <b>{title}</b>
