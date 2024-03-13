@@ -7,6 +7,9 @@ const postSchema = new mongoose.Schema(
       ref: "User",
       required: true,
     },
+    title: {
+      type: String,
+    },
     content: {
       type: String,
       required: true,
@@ -16,12 +19,15 @@ const postSchema = new mongoose.Schema(
     },
     sentiment: {
       type: Number,
+      default: 0,
     },
     upVote: {
       type: Number,
+      default: 0,
     },
     downVote: {
       type: Number,
+      default: 0,
     },
     category: {
       type: String,

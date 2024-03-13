@@ -10,8 +10,8 @@ app.use(
 );
 
 // configuration to parse JSON and URL-encoded data.
-app.use(express.json({ limit: "128kb" }));
-app.use(express.urlencoded({ extended: true, limit: "128kb" }));
+app.use(express.json());
+app.use(express.urlencoded());
 app.use(express.static("public"));
 app.use(cookieParser());
 
@@ -29,5 +29,7 @@ db.connect()
   .catch((error) => {
     console.log(`MONGO DB connection FAILED ${error}`);
   });
+
+require("./config/cloudinary").cloudinaryConnect();
 
 exports.app = app;
