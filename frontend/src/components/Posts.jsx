@@ -56,8 +56,13 @@ function Post({ content, author, image, title }) {
           alt="userprofile"
           width={30}
           height={30}
-        />
-        <span>{author}</span>
+        ></img>
+        <i className="px-5">{author}</i>
+        <div className="flex justify-end w-full">
+          <button className="bg-red-400 p-2 rounded-xl hover:bg-red-500">
+            <i>send message</i>
+          </button>
+        </div>
       </div>
       <div className="mt-2">
         <b>{title}</b>

@@ -1,5 +1,7 @@
 const express = require("express");
 const router = express.Router();
+
+require("../../../frontend/node_modules/dotenv/lib/main").config();
 require("dotenv").config();
 const multer = require("multer");
 const path = require("path");
