@@ -26,13 +26,15 @@ const upload = multer({
 // Importing authentication and post controllers
 const { login, signup, verification } = require("../controllers/auth");
 const { auth } = require("../middlewares/Auth");
-const { addPost } = require("../controllers/post");
+const { addPost, upVote, downVote } = require("../controllers/post");
 
 // API routes
 router.post("/login", login); // User login endpoint
 router.post("/signup", signup); // User signup endpoint
 router.post("/verifyEmail", verification); // Email verification endpoint
 router.post("/addPost", auth, upload.single("file"), addPost); // Add post endpoint
+router.post("/upVote", auth, upVote);
+router.post("/downVote", auth, downVote);
 
 const Post = require("../models/post.model");
 // Get all posts with Cloudinary image URLs

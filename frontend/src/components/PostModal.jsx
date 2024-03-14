@@ -2,6 +2,7 @@ import { RxCross2 } from "react-icons/rx";
 import { useState } from "react";
 import axios from "axios";
 import { BASE_URL } from "../constants/helper";
+import { toast } from "react-hot-toast";
 
 // this is the styling of the post modal
 const MODAL_STYLES = {
@@ -28,8 +29,8 @@ function PostModal({ isModalOpen, setIsModalOpen }) {
   const [content, setContent] = useState("");
   const [file, setFile] = useState(null);
   const [fileType, setFileType] = useState();
-
   async function addPost() {
+    const toastId = toast.loading("Creating Post ...");
     const formData = new FormData();
     formData.append("title", title);
     formData.append("content", content);
@@ -40,11 +41,13 @@ function PostModal({ isModalOpen, setIsModalOpen }) {
     await axios
       .post(`${BASE_URL}/addPost`, formData)
       .then((res) => {
-        alert(res);
+        toast.success("Post created");
+        setIsModalOpen(false);
       })
       .catch((err) => {
-        alert(err);
+        toast.error("Error in creating post");
       });
+    toast.dismiss(toastId);
   }
 
   if (!isModalOpen) return null;
