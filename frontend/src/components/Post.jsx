@@ -4,10 +4,8 @@ import {
   faArrowDown,
   faCommentAlt,
 } from "@fortawesome/free-solid-svg-icons";
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 import axios from "axios";
-import AddLeads from "./AddLead";
-import PostModal from "./PostModal";
 import { BASE_URL } from "../constants/helper";
 import Cookies from "universal-cookie";
 
@@ -19,6 +17,7 @@ function Post({
   id,
   initialUpVotes,
   initialDownVotes,
+  sentiment,
 }) {
   const [upVotes, setUpVotes] = useState(initialUpVotes);
   const [downVotes, setDownVotes] = useState(initialDownVotes);
@@ -26,6 +25,7 @@ function Post({
   axios.defaults.headers.common["Authorization"] = `Bearer ${cookie.get(
     "jwt_auth"
   )}`;
+
   async function handleUpVote() {
     await axios
       .post(`${BASE_URL}/upVote`, { postId: id })
@@ -38,7 +38,7 @@ function Post({
       });
   }
 
-  async function handleDownVote(s) {
+  async function handleDownVote() {
     await axios
       .post(`${BASE_URL}/downVote`, { postId: id })
       .then((res) => {
@@ -48,6 +48,21 @@ function Post({
       .catch((err) => {
         alert(err);
       });
+  }
+
+  let sentimentTag = null;
+  if (sentiment > 0) {
+    sentimentTag = (
+      <div className="bg-green-700 text-white px-2 py-1 rounded mr-2">
+        Positive
+      </div>
+    );
+  } else if (sentiment < 0) {
+    sentimentTag = (
+      <div className="bg-red-700 text-white px-2 py-1 rounded mr-2">
+        Negative
+      </div>
+    );
   }
 
   return (
@@ -62,7 +77,8 @@ function Post({
         ></img>
         <span className="font-bold">{author}</span>
         <div className="flex-grow"></div>
-        <button className="bg-red-400 px-3 py-1 rounded-xl hover:bg-red-500">
+        {sentimentTag}
+        <button className="bg-blue-900 px-3 py-1 rounded-md hover:bg-blue-500">
           <i>send message</i>
         </button>
       </div>

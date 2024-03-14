@@ -29,6 +29,8 @@ function PostModal({ isModalOpen, setIsModalOpen }) {
   const [content, setContent] = useState("");
   const [file, setFile] = useState(null);
   const [fileType, setFileType] = useState();
+  const [category, setCategory] = useState("other");
+
   async function addPost() {
     const toastId = toast.loading("Creating Post ...");
     const formData = new FormData();
@@ -36,7 +38,7 @@ function PostModal({ isModalOpen, setIsModalOpen }) {
     formData.append("content", content);
     formData.append("fileType", fileType);
     formData.append("file", file);
-    formData.append("category", "report");
+    formData.append("category", category);
     console.log(file);
     await axios
       .post(`${BASE_URL}/addPost`, formData)
@@ -104,6 +106,17 @@ function PostModal({ isModalOpen, setIsModalOpen }) {
           >
             Upload File
           </label>
+
+          <select
+            className="bg-red-500 hover:bg-red-800 m-2 text-white rounded-xl p-3 cursor-pointer"
+            value={category}
+            onChange={(e) => setCategory(e.target.value)}
+          >
+            <option value="report">Report</option>
+            <option value="observation">Observation</option>
+            <option value="suggestion">Suggestion</option>
+            <option value="other">Other</option>
+          </select>
 
           <button
             className="bg-red-500 hover:bg-red-800 m-2 text-white rounded-xl p-3"

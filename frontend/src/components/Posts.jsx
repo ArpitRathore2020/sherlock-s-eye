@@ -44,6 +44,7 @@ function Posts() {
             id={post._id}
             initialUpVotes={post.upVote.length}
             initialDownVotes={post.downVote.length}
+            sentiment={post.sentiment}
           />
         );
       })}

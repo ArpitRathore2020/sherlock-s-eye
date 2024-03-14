@@ -1,22 +1,48 @@
-import { useContext } from "react";
+import { useEffect, useState, useContext } from "react";
+import axios from "axios";
 import ExpandedContext from "./context";
-
-const cat = ["Theft", "Murder", "Kidnapping", "Blackmailing"];
+import { BASE_URL } from "../constants/helper";
 
 function Categories() {
   const { expanded, setExpanded } = useContext(ExpandedContext);
+  const [categoryRanking, setCategoryRanking] = useState({});
+
+  useEffect(() => {
+    async function fetchCategoryRanking() {
+      try {
+        const response = await axios.get(`${BASE_URL}/getTopCategories`);
+        setCategoryRanking(response.data);
+        console.log(response.data);
+      } catch (error) {
+        console.error("Failed to fetch category ranking data:", error);
+      }
+    }
+
+    fetchCategoryRanking();
+  }, []);
+
   return (
-    <div className={`flex-col bg-gray-700 h-screen`}>
-      <b>CATEGORIES</b>
+    <div className="flex-col bg-gray-700 h-screen p-5">
+      <b className="text-white text-lg mb-3">Top Categories</b>
       {/* displaying all the available categories of crime that we have */}
-      {cat.map((category, key) => {
+      {Object.entries(categoryRanking).map(([category, posts], key) => {
         return (
-          // make on cliks here to make it do something on clicking
           <div
             key={key}
-            className="flex bg-gray-500 hover:bg-gray-400 rounded-xl  p-2 m-2"
+            className="bg-gray-500 hover:bg-gray-400 rounded-xl p-2 mb-2"
           >
-            {category}
+            <h2 className="text-white mb-2"># {category}</h2>
+            <ul>
+              {posts.map((post, index) => (
+                <li key={index} className="flex justify-between items-center">
+                  <div>
+                    <span>{post.title}</span>
+                    <span>{post._id}</span>
+                  </div>
+                  <div>Upvotes: {post.upVotes}</div>
+                </li>
+              ))}
+            </ul>
           </div>
         );
       })}
