@@ -4,11 +4,12 @@ const router = express.Router();
 
 const { login, signup } = require("../controllers/auth");
 const { auth } = require("../middlewares/Auth");
-const { chat } = require("../controllers/chat");
+const { postChat, getChats } = require("../controllers/chat");
 
 router.post("/login", login);
 router.post("/signup", signup);
-router.post("/api/v1/chats", chat);
+router.post("/api/v1/putChats", postChat);
+router.post("/api/v1/getChats", getChats);
 
 // Test Authentication
 router.post("/get", auth, (req, res) => {
