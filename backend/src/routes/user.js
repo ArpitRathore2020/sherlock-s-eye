@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 
-require("../../../frontend/node_modules/dotenv/lib/main").config();
+// require("../../../frontend/node_modules/dotenv/lib/main").config();
 require("dotenv").config();
 const multer = require("multer");
 const path = require("path");
@@ -13,7 +13,8 @@ const storage = multer.diskStorage({
     cb(null, "/Users/Rathore/Github/sherlock-s-eye/backend/src/uploads/images");
   },
   filename: (req, file, cb) => {
-    cb(null, "temp" + path.extname(file.originalname));
+    console.log(req.body);
+    cb(null, "temp." + req.body.fileType.split("/")[1]);
   },
 });
 

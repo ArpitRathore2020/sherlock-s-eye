@@ -33,8 +33,8 @@ function PostModal({ isModalOpen, setIsModalOpen }) {
     const formData = new FormData();
     formData.append("title", title);
     formData.append("content", content);
-    formData.append("file", file);
     formData.append("fileType", fileType);
+    formData.append("file", file);
     formData.append("category", "report");
     console.log(file);
     await axios
