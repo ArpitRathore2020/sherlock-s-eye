@@ -2,12 +2,13 @@ const bcrypt = require("bcrypt");
 const User = require("../models/user.model");
 const jwt = require("jsonwebtoken");
 require("dotenv").config();
+const sendMail = require("../utils/mailSender");
+const randomStringGenerator = require("../utils/randomString");
 
 // Signup
 exports.signup = async (req, res) => {
   try {
     const { name, email, password } = req.body;
-
     // check if all fields are provided
     if (!name || !email || !password) {
       return res.status(401).json({
@@ -19,10 +20,13 @@ exports.signup = async (req, res) => {
     // check if the user already exists
     const existingUser = await User.findOne({ email });
     if (existingUser) {
-      return res.status(400).json({
-        success: false,
-        message: "User already exists",
-      });
+      if (existingUser.isEmailVerified == false) {
+        await User.findByIdAndDelete({ _id: existingUser.id });
+      } else
+        return res.status(400).json({
+          success: false,
+          message: "User already exists",
+        });
     }
 
     // hash the password
@@ -37,17 +41,35 @@ exports.signup = async (req, res) => {
       });
     }
 
+    // Generate random string
+    const randomString = randomStringGenerator(5);
+
+    // Send Email to user
+    await sendMail(
+      email,
+      "Email",
+      `<h1>Welcome ${name}<h1/><p> Code is ${randomString}`
+    );
+
     // create new user entry
     let user = await User.create({
       name,
       email,
       password: hashedPassword,
-    });
-
-    return res.status(200).json({
-      success: true,
-      message: "User Created Successfully",
-    });
+      code: randomString,
+    })
+      .then(() => {
+        return res.status(200).json({
+          success: true,
+          message: "User creation success",
+        });
+      })
+      .catch(() => {
+        return res.status(401).json({
+          success: false,
+          message: "FAILED. User not created",
+        });
+      });
   } catch (err) {
     console.error(err);
     return res.status(500).json({
@@ -113,6 +135,42 @@ exports.login = async (req, res) => {
     return res.status(500).json({
       success: false,
       message: "Login failure",
+    });
+  }
+};
+
+// Verify Email
+exports.verification = async (req, res) => {
+  try {
+    const { email, code } = req.body;
+    const user = await User.findOne({ email });
+
+    if (!user) {
+      return res.status(401).json({
+        success: false,
+        message: "Email not registered",
+      });
+    }
+
+    console.log(user);
+    console.log(`${user.code} <> ${code}`);
+    if (user.code == code) {
+      await User.updateOne({ email }, { isEmailVerified: true });
+      return res.status(200).json({
+        success: true,
+        message: "Email verified",
+      });
+    } else {
+      return res.status(401).json({
+        success: false,
+        message: "Error occurred while verifying Email",
+      });
+    }
+  } catch (err) {
+    console.log("EMAIL NOT VERIFIED");
+    return res.status(401).json({
+      success: false,
+      message: "Error occurred while verifying Email",
     });
   }
 };

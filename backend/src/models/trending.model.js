@@ -16,4 +16,4 @@ const trendingSchema = new mongoose.Schema(
   }
 );
 
-export const trending = mongoose.model("Trending", trendingSchema);
+module.exports = mongoose.model("Trending", trendingSchema);
