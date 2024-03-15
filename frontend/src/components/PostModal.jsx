@@ -33,13 +33,21 @@ function PostModal({ isModalOpen, setIsModalOpen }) {
 
   async function addPost() {
     const toastId = toast.loading("Creating Post ...");
+
+    // Check if title, content, and file are all provided
+    if (!title.trim() || !content.trim() || !file) {
+      toast.error("Please provide title, content, and image.");
+      toast.dismiss(toastId);
+      return;
+    }
+
     const formData = new FormData();
     formData.append("title", title);
     formData.append("content", content);
     formData.append("fileType", fileType);
     formData.append("file", file);
     formData.append("category", category);
-    console.log(file);
+
     await axios
       .post(`${BASE_URL}/addPost`, formData)
       .then((res) => {
@@ -49,6 +57,7 @@ function PostModal({ isModalOpen, setIsModalOpen }) {
       .catch((err) => {
         toast.error("Error in creating post");
       });
+
     toast.dismiss(toastId);
   }
 
