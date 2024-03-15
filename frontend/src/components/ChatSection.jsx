@@ -13,10 +13,11 @@ function ChatSection() {
   const location = useLocation();
   const reciever = location.state.reciever;
   const recieverId = location.state.recieverId;
-  console.log(recieverId);
+
+  // console.log(recieverId);
   // console.log("chats " + chats.messages[0].message);
   return (
-    <div className="flex-col border border-gray-200 h-full">
+    <div className="flex-col border border-gray-200 h-screen">
       <ChatTopBar
         className="h-1/6"
         recieverImage="https://picsum.photos/200"
@@ -50,11 +51,34 @@ function ChatTopBar({ recieverImage, recieverUserName }) {
 // the field where we input the message
 function ChatFooter({ senderId, recieverId }) {
   const [currentChat, setCurrentChat] = useState("");
+  const postChats = () => {
+    axios
+      .post(`${BASE_URL}/api/v1/putChats`, {
+        data: {
+          sender: senderId,
+          reciever: recieverId,
+          message: currentChat,
+        },
+      })
+      .then((response) => {
+        // console.log(response);
+      })
+      .catch((e) => {
+        console.log(e);
+      });
+    setCurrentChat("");
+  };
   return (
     <div className="bg-gray-600 flex w-full my-2">
       <input
+        value={currentChat}
         onChange={(event) => {
           setCurrentChat(event.target.value);
+        }}
+        onKeyDown={(event) => {
+          if (event.key == "Enter") {
+            postChats();
+          }
         }}
         className="rounded-full p-3 m-3 w-full"
         type="text"
@@ -62,20 +86,7 @@ function ChatFooter({ senderId, recieverId }) {
       />
       <LuSendHorizonal
         onClick={() => {
-          axios
-            .post(`${BASE_URL}/api/v1/putChats`, {
-              data: {
-                sender: senderId,
-                reciever: recieverId,
-                message: currentChat,
-              },
-            })
-            .then((response) => {
-              console.log(response);
-            })
-            .catch((e) => {
-              console.log(e);
-            });
+          postChats();
         }}
         className="m-3 w-12 h-12 p-1 rounded-2xl hover:bg-gray-500"
         color="white"
@@ -89,7 +100,7 @@ function Chats({ recieverImage, messages }) {
   const cookie = new Cookies();
   const obj = jwtDecode(cookie.get("jwt_auth"));
   const USER_ID = obj.id;
-  console.log(messages);
+  // console.log(messages);
   return (
     <div className="flex-col h-fit w-full overflow-auto">
       {messages.map((chat, key) => {

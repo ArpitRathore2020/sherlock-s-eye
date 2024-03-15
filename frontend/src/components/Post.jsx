@@ -8,6 +8,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { BASE_URL } from "../constants/helper";
 import Cookies from "universal-cookie";
+import { useNavigate } from "react-router-dom";
 
 function Post({
   content,
@@ -22,6 +23,7 @@ function Post({
   const [upVotes, setUpVotes] = useState(initialUpVotes);
   const [downVotes, setDownVotes] = useState(initialDownVotes);
   const cookie = new Cookies();
+  const navigate = useNavigate();
   axios.defaults.headers.common["Authorization"] = `Bearer ${cookie.get(
     "jwt_auth"
   )}`;
@@ -78,7 +80,18 @@ function Post({
         <span className="font-bold">{author}</span>
         <div className="flex-grow"></div>
         {sentimentTag}
-        <button className="bg-blue-900 px-3 py-1 rounded-md hover:bg-blue-500">
+        <button
+          onClick={() => {
+            navigate("/home/messages", {
+              state: {
+                messages: [],
+                reciever: "random",
+                recieverId: author,
+              },
+            });
+          }}
+          className="bg-blue-900 px-3 py-1 rounded-md hover:bg-blue-500"
+        >
           <i>send message</i>
         </button>
       </div>
