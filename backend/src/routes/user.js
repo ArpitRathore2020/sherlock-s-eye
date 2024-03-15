@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 
-require("../../../frontend/node_modules/dotenv/lib/main").config();
+// require("../../../frontend/node_modules/dotenv/lib/main").config();
 require("dotenv").config();
 
 const { login, signup, verification } = require("../controllers/auth");

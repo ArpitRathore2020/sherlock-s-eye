@@ -10,6 +10,7 @@ exports.postChat = async (req, res) => {
   const receiverId = new mongoose.Types.ObjectId(req.body.data.reciever);
   const message = req.body.data.message;
   // console.log(senderId);
+  // console.log(receiverId);
   try {
     // trying to update chat
     let result = await userChat.updateOne(
@@ -41,7 +42,6 @@ exports.postChat = async (req, res) => {
       }
     );
     if (result.modifiedCount == 0) {
-      // console.log(result);
       // if not found so creating a chat
       result = await userChat.create({
         person1: senderId,
@@ -58,7 +58,6 @@ exports.postChat = async (req, res) => {
           },
         ],
       });
-      console.log("result");
       // updating sender's conversation (pushing chat to sender's conversation)
       await user.updateOne(
         {
@@ -109,6 +108,7 @@ exports.getChats = async (req, res) => {
     const chats = await user.findOne({
       _id: userId,
     });
+
     // populating the array with actual chats
     let populated = await chats.populate({
       path: "conversation",
@@ -124,7 +124,6 @@ exports.getChats = async (req, res) => {
         },
       ],
     });
-    // console.log(populated);
 
     // we need to do slight changes in populated
     // since we do not want to send all the data (including password) in the frontend

@@ -3,9 +3,13 @@ import { useLocation } from "react-router-dom";
 import { useState } from "react";
 import axios from "axios";
 import BASE_URL from "../config";
-const USER_ID = "65f289606797755339715b95";
+import { jwtDecode } from "jwt-decode";
+import Cookies from "universal-cookie";
 
 function ChatSection() {
+  const cookie = new Cookies();
+  const obj = jwtDecode(cookie.get("jwt_auth"));
+  const USER_ID = obj.id;
   const location = useLocation();
   const reciever = location.state.reciever;
   const recieverId = location.state.recieverId;
@@ -82,6 +86,9 @@ function ChatFooter({ senderId, recieverId }) {
 
 // this is the part where we can see all the previous chats
 function Chats({ recieverImage, messages }) {
+  const cookie = new Cookies();
+  const obj = jwtDecode(cookie.get("jwt_auth"));
+  const USER_ID = obj.id;
   console.log(messages);
   return (
     <div className="flex-col h-fit w-full overflow-auto">

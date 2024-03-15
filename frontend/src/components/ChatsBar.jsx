@@ -2,11 +2,18 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import BASE_URL from "../config";
-const USER_ID = "65f289606797755339715b95";
+
 import axios from "axios";
+import { jwtDecode } from "jwt-decode";
+import Cookies from "universal-cookie";
 
 function ChatsBar() {
   const [conversations, setConversations] = useState([]);
+  const cookie = new Cookies();
+  const obj = jwtDecode(cookie.get("jwt_auth"));
+  // console.log(cookie.get("jwt_auth"));
+  const USER_ID = obj.id;
+  console.log(obj.id);
 
   useEffect(() => {
     axios
@@ -43,6 +50,10 @@ function ChatsBar() {
 }
 
 function ChatComp({ reciever, conversation }) {
+  const cookie = new Cookies();
+  const obj = jwtDecode(cookie.get("jwt_auth"));
+  const USER_ID = obj.id;
+  console.log(USER_ID);
   const navigate = useNavigate();
   return (
     <div
