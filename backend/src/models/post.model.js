@@ -7,6 +7,9 @@ const postSchema = new mongoose.Schema(
       ref: "User",
       required: true,
     },
+    title: {
+      type: String,
+    },
     content: {
       type: String,
       required: true,
@@ -16,13 +19,10 @@ const postSchema = new mongoose.Schema(
     },
     sentiment: {
       type: Number,
+      default: 0,
     },
-    upVote: {
-      type: Number,
-    },
-    downVote: {
-      type: Number,
-    },
+    upVote: [{ type: mongoose.Schema.Types.ObjectId, ref: "User" }],
+    downVote: [{ type: mongoose.Schema.Types.ObjectId, ref: "User" }],
     category: {
       type: String,
       enum: ["observation", "report", "suggestion", "other"], // New fields to be added

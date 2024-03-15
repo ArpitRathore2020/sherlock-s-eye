@@ -14,21 +14,22 @@ exports.auth = async (req, res, next) => {
       const decoded = jwt.verify(token, process.env.JWT_SECRET);
       req.user = await User.findById(decoded.id);
       if (!req.user || !req.user.isEmailVerified) {
-        return res.status.json(401).json({
+        return res.status.json(466).json({
           success: false,
           message: "Email Not verified",
         });
       }
+      req.id = decoded.id;
       next();
     } catch (error) {
       console.log(error);
-      return res.status(401).json({
+      return res.status(488).json({
         success: false,
         message: "Not Authorized",
       });
     }
   } else {
-    return res.status(401).json({
+    return res.status(499).json({
       success: false,
       message: "Token not found",
     });

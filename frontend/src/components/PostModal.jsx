@@ -1,6 +1,10 @@
 import { RxCross2 } from "react-icons/rx";
 import { useState } from "react";
-// this is the syling of the post modal
+import axios from "axios";
+import { BASE_URL } from "../constants/helper";
+import { toast } from "react-hot-toast";
+
+// this is the styling of the post modal
 const MODAL_STYLES = {
   position: "fixed",
   top: "50%",
@@ -21,48 +25,80 @@ const OVERLAY_STYLES = {
 };
 
 function PostModal({ isModalOpen, setIsModalOpen }) {
-  const [file, setFile] = useState();
-  function handleChange(e) {
-    setFile(URL.createObjectURL(e.target.files[0]));
+  const [title, setTitle] = useState("");
+  const [content, setContent] = useState("");
+  const [file, setFile] = useState(null);
+  const [fileType, setFileType] = useState();
+  const [category, setCategory] = useState("other");
+
+  async function addPost() {
+    const toastId = toast.loading("Creating Post ...");
+    const formData = new FormData();
+    formData.append("title", title);
+    formData.append("content", content);
+    formData.append("fileType", fileType);
+    formData.append("file", file);
+    formData.append("category", category);
+    console.log(file);
+    await axios
+      .post(`${BASE_URL}/addPost`, formData)
+      .then((res) => {
+        toast.success("Post created");
+        setIsModalOpen(false);
+      })
+      .catch((err) => {
+        toast.error("Error in creating post");
+      });
+    toast.dismiss(toastId);
   }
 
-  // if modal is not open so just return null
   if (!isModalOpen) return null;
-  // if modal is open so we have to show the modal
+
   return (
     <div>
       <div style={OVERLAY_STYLES}>
         <div
           style={MODAL_STYLES}
-          className="rounded-xl bg-gray-600 w-3/5 h-3/5 text-white border-2 flex-col overflow-auto"
+          className="rounded-xl bg-gray-600 w-full max-w-lg text-white border-2 flex-col overflow-auto "
         >
           <div className="flex justify-end h-4">
             <RxCross2 onClick={() => setIsModalOpen(false)} color="white" />
           </div>
-          <div className=" flex">
+          <div className="flex">
             <input
               className="p-4 border-none bg-gray-600 text-3xl w-full"
               placeholder="Title"
+              onChange={(e) => setTitle(e.target.value)}
             ></input>
           </div>
-          <div className=" flex">
+          <div className="flex">
             <input
               className="p-4 border-none bg-gray-600 w-full h-full"
               placeholder="What do you want to write about"
+              onChange={(e) => {
+                setContent(e.target.value);
+              }}
             ></input>
           </div>
           <hr className="my-2"></hr>
-          <img
-            className="w-3/5 rounded-xl shadow-xl py-2"
-            src={file}
-            alt="selected Image"
-          />
-          <hr className="my-2"></hr>
+          {file && (
+            <>
+              <img
+                className="w-full rounded-xl shadow-xl py-2"
+                src={URL.createObjectURL(file)}
+                alt="selected Image"
+              />
+              <hr className="my-2"></hr>
+            </>
+          )}
           <input
             type="file"
             className="hidden"
-            id="fileInput" // Add an id to the input element
-            onChange={handleChange}
+            id="fileInput"
+            onChange={(e) => {
+              setFile(e.target.files[0]);
+              setFileType(e.target.files[0].type);
+            }}
           />
           <label
             htmlFor="fileInput"
@@ -71,14 +107,20 @@ function PostModal({ isModalOpen, setIsModalOpen }) {
             Upload File
           </label>
 
+          <select
+            className="bg-red-500 hover:bg-red-800 m-2 text-white rounded-xl p-3 cursor-pointer"
+            value={category}
+            onChange={(e) => setCategory(e.target.value)}
+          >
+            <option value="report">Report</option>
+            <option value="observation">Observation</option>
+            <option value="suggestion">Suggestion</option>
+            <option value="other">Other</option>
+          </select>
+
           <button
             className="bg-red-500 hover:bg-red-800 m-2 text-white rounded-xl p-3"
-            onClick={() => {
-              setFile();
-              setIsModalOpen(false);
-
-              // we have to send a request to backend now to add a post
-            }}
+            onClick={addPost}
           >
             Post
           </button>

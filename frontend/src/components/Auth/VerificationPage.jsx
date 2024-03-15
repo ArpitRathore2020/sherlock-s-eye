@@ -21,7 +21,7 @@ function VerificationPage() {
         code: code,
       })
       .then((result) => {
-        navigate("/home");
+        navigate("/");
       })
       .catch((err) => {
         console.log(err);
