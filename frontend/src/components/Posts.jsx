@@ -31,6 +31,7 @@ function Posts() {
   return (
     <div className="bg-gray-900 text-white h-screen overflow-auto p-5">
       <AddLeads setIsModalOpen={setIsModalOpen} />
+      {/* use useCallback here for setIsModalOpen to prevent rerendering in opening and closing of modal */}
       <PostModal isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen} />
       <hr className="m-8 bg-gray-600"></hr>
       {posts.map((post, key) => {

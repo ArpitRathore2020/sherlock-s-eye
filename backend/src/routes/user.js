@@ -7,6 +7,11 @@ const multer = require("multer");
 const path = require("path");
 const cloudinary = require("cloudinary").v2;
 
+
+const { login, signup, verification } = require("../controllers/auth");
+const { auth } = require("../middlewares/Auth");
+const { postChat, getChats } = require("../controllers/chat");
+
 // Multer storage configuration
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
@@ -33,6 +38,7 @@ const {
   getTopCategories,
 } = require("../controllers/post");
 
+
 // API routes
 router.post("/login", login); // User login endpoint
 router.post("/signup", signup); // User signup endpoint
@@ -42,11 +48,16 @@ router.post("/upVote", auth, upVote);
 router.post("/downVote", auth, downVote);
 router.get("/getTopCategories", auth, getTopCategories);
 
+
+router.post("/api/v1/putChats", postChat);
+router.post("/api/v1/getChats", getChats);
+
 const Post = require("../models/post.model");
 // Get all posts with Cloudinary image URLs
 router.get(`/posts`, async (req, res) => {
   try {
     const posts = await Post.find();
+
 
     // Map each post to include the Cloudinary image URL
     const postsWithImages = await Promise.all(
@@ -58,6 +69,7 @@ router.get(`/posts`, async (req, res) => {
         return post.toObject();
       })
     );
+
 
     res.status(200).json(postsWithImages);
   } catch (err) {
