@@ -47,8 +47,66 @@ exports.signup = async (req, res) => {
     // Send Email to user
     await sendMail(
       email,
-      "Email",
-      `<h1>Welcome ${name}<h1/><p> Code is ${randomString}`
+      "Welcome to bit2byte",
+      `
+      <html>
+      <head>
+        <style>
+          body {
+            font-family: Arial, sans-serif;
+            background-size: cover;
+            color: #fff;
+            padding: 20px;
+          }
+          .container {
+            background-image: url("https://windowscustomization.com/wp-content/uploads/2018/10/cyberpunk-night-city.gif");
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: rgba(0, 0, 0, 0.6);
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+          }
+          h1 {
+            color: #f0f0f0;
+            padding: 10px;
+            border-radius: 10px;
+            background-color: rgb(27, 26, 26);
+          }
+          p {
+            padding: 5px;
+            border-radius: 5px;
+            width: fit-content;
+            background-color: black;
+            color: #ccc;
+            line-height: 1.6;
+          }
+          .code {
+            padding: 10px;
+            margin-top: 30px;
+            margin-bottom: 30px;
+            background-color: black;
+            border-radius: 5px;
+            border-radius: 5px;
+            font-size: 1.2em;
+            margin-top: 20px;
+            color: #f0f0f0;
+          }
+        </style>
+      </head>
+      <body>
+        <div class="container">
+          <h1>Welcome, <span style="color: rgb(74, 74, 236)">${name} </span></h1>
+          <p>Thank you for joining our platform.</p>
+          <div class="code">
+            Your verification code is: <br /><b style="color: rgb(74, 74, 236)"
+              >${randomString}</b
+            >
+          </div>
+        </div>
+      </body>
+    </html> 
+      `
     );
 
     // create new user entry

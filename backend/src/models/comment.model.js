@@ -2,11 +2,15 @@ const mongoose = require("mongoose");
 
 const commentSchema = new mongoose.Schema(
   {
-    userID: {
+    author: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "User",
     },
-    Content: {
+    postId: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Post",
+    },
+    content: {
       type: String,
     },
     parent: {
