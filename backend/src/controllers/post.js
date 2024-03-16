@@ -41,7 +41,7 @@ exports.addPost = async (req, res, next) => {
     await newPost
       .save()
       .then(() => {
-        console.log(result.secure_url);
+        // console.log(result.secure_url);
         return res
           .status(201)
           .json({ message: "Post created successfully", post: newPost });

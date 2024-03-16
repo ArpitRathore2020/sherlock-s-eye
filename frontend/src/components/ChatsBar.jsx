@@ -66,7 +66,6 @@ function ChatComp({ reciever, conversation }) {
         // console.log(receiverId);
         navigate("/home/messages", {
           state: {
-            messages: conversation.messages,
             reciever: reciever,
             recieverId: receiverId,
           },
