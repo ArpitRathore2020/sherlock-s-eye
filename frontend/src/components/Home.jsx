@@ -30,23 +30,23 @@ function Home() {
   //   }, []);
 
   return (
-    <div className="flex-col h-screen bg-gray-400 overflow-hidden">
+    <div className="flex-col h-screen bg-black overflow-hidden">
       {/* <div className="flex-col h-screen bg-gray-400"> */}
       <ExpandedContext.Provider value={{ expanded, setExpanded }}>
         <TopBar loggedIn={true} />
         <SideBar />
       </ExpandedContext.Provider>
       <div className="grid grid-cols-12 gap-2 h-screen">
-        <div className="hidden sm:block col-span-2">
+        <div className="hidden sm:block col-span-3 m-5">
           <Categories />
         </div>
-        <div className="col-span-12 sm:col-span-8">
+        <div className="col-span-12 sm:col-span-6">
           <Routes>
             <Route path="/" element={<Posts />} />
             <Route path="/messages" element={<ChatSection />} />
           </Routes>
         </div>
-        <div className="hidden sm:block col-span-2">
+        <div className="hidden sm:block col-span-3 m-10">
           <ChatsBar />
         </div>
       </div>

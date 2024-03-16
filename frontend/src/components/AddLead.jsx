@@ -3,7 +3,7 @@ function AddLeads({ setIsModalOpen }) {
     <div className="flex justify-around px-10">
       <img
         className="rounded-full h-16 w-16"
-        src="https://picsum.photos/200"
+        src="https://winaero.com/blog/wp-content/uploads/2019/09/Chrome-Incognito-Mode-Icon-256.png"
         alt="Image"
       ></img>
       <input
