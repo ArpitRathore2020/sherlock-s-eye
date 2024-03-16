@@ -15,6 +15,13 @@ exports.postChat = async (req, res) => {
       message: "string empty",
     });
   }
+
+  if (senderId === receiverId) {
+    console.error("sending message to self");
+    return res.status(411).json({
+      message: "You cannot send message to yourself",
+    });
+  }
   // console.log(senderId);
   // console.log(receiverId);
   try {
