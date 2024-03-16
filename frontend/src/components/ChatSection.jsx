@@ -128,7 +128,7 @@ function Chats({ recieverImage, messages }) {
   const USER_ID = obj.id;
   // console.log(messages);
   return (
-    <div className="flex-col h-fit w-full overflow-auto">
+    <div className="flex-col h-fit w-full overflow-auto no-scrollbar">
       {messages.map((chat, key) => {
         // console.log(messages);
         let msgClass = "",
