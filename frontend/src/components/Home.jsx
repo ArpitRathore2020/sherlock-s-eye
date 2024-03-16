@@ -1,16 +1,17 @@
 import TopBar from "./TopBar";
 import Categories from "./Categories";
 import ChatsBar from "./ChatsBar";
-import Posts from "./Posts";
 import SideBar from "./SideBar";
 import ExpandedContext from "./context";
 import ChatSection from "./ChatSection";
 import { Link, useNavigate, useLocation } from "react-router-dom";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { BASE_URL } from "../constants/helper";
 import Cookies from "universal-cookie";
+import { Suspense } from "react";
+const Posts = React.lazy(() => import("./Posts"));
 
 function Home() {
   const cookie = new Cookies();
@@ -42,7 +43,14 @@ function Home() {
         </div>
         <div className="col-span-12 sm:col-span-6">
           <Routes>
-            <Route path="/" element={<Posts />} />
+            <Route
+              path="/"
+              element={
+                <Suspense fallback={"loading"}>
+                  <Posts />
+                </Suspense>
+              }
+            />
             <Route path="/messages" element={<ChatSection />} />
           </Routes>
         </div>
