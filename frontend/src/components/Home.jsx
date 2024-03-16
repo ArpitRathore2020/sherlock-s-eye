@@ -12,6 +12,7 @@ import { BASE_URL } from "../constants/helper";
 import Cookies from "universal-cookie";
 import { Suspense } from "react";
 const Posts = React.lazy(() => import("./Posts"));
+// since posts are a lot so we don't want to load then
 
 function Home() {
   const cookie = new Cookies();
