@@ -10,6 +10,7 @@ const cloudinary = require("cloudinary").v2;
 const { login, signup, verification } = require("../controllers/auth");
 const { auth } = require("../middlewares/Auth");
 const { postChat, getChats } = require("../controllers/chat");
+const { addComment, getComments } = require("../controllers/commentController");
 
 // Multer storage configuration
 const storage = multer.diskStorage({
@@ -44,7 +45,8 @@ router.post("/addPost", auth, upload.single("file"), addPost); // Add post endpo
 router.post("/upVote", auth, upVote);
 router.post("/downVote", auth, downVote);
 router.get("/getTopCategories", auth, getTopCategories);
-
+router.post("/addComment", auth, addComment);
+router.get("/comments/:postId", getComments);
 router.post("/api/v1/putChats", postChat); // adding chat to database route
 router.post("/api/v1/getChats", getChats); // getting chat route
 
