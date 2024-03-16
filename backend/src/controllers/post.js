@@ -1,4 +1,5 @@
 const Post = require("../models/post.model");
+const User = require("../models/user.model");
 const cloudinary = require("cloudinary").v2;
 const fs = require("fs");
 const Sentiment = require("sentiment");
@@ -9,7 +10,7 @@ exports.addPost = async (req, res, next) => {
     const type = fileType.split("/")[1];
     // Read the image file from the specified location
     const imageStream = fs.createReadStream(
-      `/Users/hariom/OneDrive/Desktop/img.${type}`
+      `/Users/Rathore/Github/sherlock-s-eye/backend/src/uploads/images/temp.${type}`
     );
 
     const sentiment = new Sentiment();
@@ -27,8 +28,11 @@ exports.addPost = async (req, res, next) => {
       imageStream.pipe(stream);
     });
 
+    const user = await User.findById({ _id: req.id });
+
     const newPost = new Post({
       userID: req.id,
+      name: user.name,
       title: title,
       content: content,
       media: result.secure_url,

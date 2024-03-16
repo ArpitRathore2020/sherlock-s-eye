@@ -9,6 +9,7 @@ import Post from "./Post";
 function Posts() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [posts, setPosts] = useState([]);
+  const [darkMode, setDarkMode] = useState(true);
   const cookie = new Cookies();
 
   useEffect(() => {
@@ -19,6 +20,7 @@ function Posts() {
       try {
         const response = await axios.get(`${BASE_URL}/posts`);
         setPosts(response.data.reverse());
+        console.log(response.data);
         // console.log(response.data);
       } catch (err) {
         console.error(err);
@@ -29,14 +31,15 @@ function Posts() {
   }, []);
 
   return (
-    <div className="bg-gray-900 text-white h-screen overflow-auto p-5">
+    <div className="bg-black text-white h-screen overflow-auto p-5">
       <AddLeads setIsModalOpen={setIsModalOpen} />
       {/* use useCallback here for setIsModalOpen to prevent rerendering in opening and closing of modal */}
       <PostModal isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen} />
-      <hr className="m-8 bg-gray-600"></hr>
+      <hr className="m-8 bg-gray-600 "></hr>
       {posts.map((post, key) => {
         return (
           <Post
+            name={post.name}
             key={key}
             content={post.content}
             author={post.userID}

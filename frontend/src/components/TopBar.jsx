@@ -1,6 +1,6 @@
 import { ChevronLast, ChevronFirst } from "lucide-react";
 import eagle from "../assets/eagle.png";
-import { useContext, useState } from "react";
+import { useContext } from "react";
 import ExpandedContext from "./context";
 import { FaHome } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
@@ -9,7 +9,7 @@ function TopBar() {
   const { expanded, setExpanded } = useContext(ExpandedContext);
   const navigate = useNavigate();
   return (
-    <div className="flex justify-between bg-gray-800">
+    <div className="flex justify-between bg-blue-800 text-white">
       <div className="flex">
         <div className="block sm:hidden p-4 pb-2  justify-between items-center">
           <button
@@ -43,11 +43,11 @@ function TopBar() {
         ></img>
       </div>
 
-      <div className="flex">
+      <div className="flex items-center">
         {/* profile */}
         <img
-          className="rounded-full py-2 mx-4 w-16 h-16"
-          src="https://picsum.photos/200"
+          className="rounded-full mx-4 w-10 h-10"
+          src="https://winaero.com/blog/wp-content/uploads/2019/09/Chrome-Incognito-Mode-Icon-256.png"
           alt="image here"
         ></img>
       </div>

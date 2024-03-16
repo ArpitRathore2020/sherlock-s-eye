@@ -1,4 +1,3 @@
-// we will recieve such object from backend
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import BASE_URL from "../config";
@@ -11,9 +10,7 @@ function ChatsBar() {
   const [conversations, setConversations] = useState([]);
   const cookie = new Cookies();
   const obj = jwtDecode(cookie.get("jwt_auth"));
-  // console.log(cookie.get("jwt_auth"));
   const USER_ID = obj.id;
-  // console.log(obj.id);
 
   useEffect(() => {
     axios
@@ -24,17 +21,15 @@ function ChatsBar() {
       })
       .then((response) => {
         setConversations(response.data.response);
-        // console.log(response.data.response);
       })
       .catch((e) => {
-        console.log(`error occured ${e}`);
+        console.log(`error occurred ${e}`);
       });
   }, [conversations]);
 
-  // now we have the conversation array
-  // console.log(conversations.length);
+  const navigate = useNavigate();
   return (
-    <div className="flex-col bg-gray-700 h-full">
+    <div className="flex-col bg-black h-full text-white">
       <b>CHATS</b>
       {conversations.map((conversation, key) => {
         const reciever =
@@ -42,28 +37,27 @@ function ChatsBar() {
             ? conversation.person2.name
             : conversation.person1.name;
         return (
-          <ChatComp key={key} reciever={reciever} conversation={conversation} />
+          <ChatComp
+            key={key}
+            reciever={reciever}
+            conversation={conversation}
+            navigate={navigate}
+            USER_ID={USER_ID}
+          />
         );
       })}
     </div>
   );
 }
 
-function ChatComp({ reciever, conversation }) {
-  const cookie = new Cookies();
-  const obj = jwtDecode(cookie.get("jwt_auth"));
-  const USER_ID = obj.id;
-  // extracting user_id from jwt token we have saved in the browser cookies
-  const navigate = useNavigate();
+function ChatComp({ reciever, conversation, navigate, USER_ID }) {
   return (
     <div
       onClick={() => {
-        // now we need to pass the messages here,
         const receiverId =
           conversation.person1._id == USER_ID
             ? conversation.person2._id
             : conversation.person1._id;
-        // console.log(receiverId);
         navigate("/home/messages", {
           state: {
             reciever: reciever,

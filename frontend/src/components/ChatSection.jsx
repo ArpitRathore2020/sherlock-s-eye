@@ -46,11 +46,14 @@ function ChatSection() {
     <div className="flex-col border border-gray-200 h-screen">
       <ChatTopBar
         className="h-1/6"
-        recieverImage="https://picsum.photos/200"
+        recieverImage="https://winaero.com/blog/wp-content/uploads/2019/09/Chrome-Incognito-Mode-Icon-256.png"
         recieverUserName={reciever}
       />
       <div className="flex flex-col justify-end h-5/6">
-        <Chats recieverImage="https://picsum.photos/200" messages={messages} />
+        <Chats
+          recieverImage="https://winaero.com/blog/wp-content/uploads/2019/09/Chrome-Incognito-Mode-Icon-256.png"
+          messages={messages}
+        />
         <ChatFooter senderId={USER_ID} recieverId={recieverId} />
       </div>
     </div>
@@ -130,7 +133,8 @@ function Chats({ recieverImage, messages }) {
         // console.log(messages);
         let msgClass = "",
           divClass = "flex m-1";
-        let image = "https://picsum.photos/200";
+        let image =
+          "https://winaero.com/blog/wp-content/uploads/2019/09/Chrome-Incognito-Mode-Icon-256.png";
         if (chat.direction[0].from == USER_ID) {
           msgClass = "bg-gray-500 rounded-xl p-2 flex";
           divClass = "flex m-1 flex-row-reverse";

@@ -111,13 +111,13 @@ function PostModal({ isModalOpen, setIsModalOpen }) {
           />
           <label
             htmlFor="fileInput"
-            className="bg-red-500 hover:bg-red-800 m-2 text-white rounded-xl p-3 cursor-pointer"
+            className="bg-blue-500 hover:bg-blue-800 m-2 text-white rounded-xl p-3 cursor-pointer"
           >
             Upload File
           </label>
 
           <select
-            className="bg-red-500 hover:bg-red-800 m-2 text-white rounded-xl p-3 cursor-pointer"
+            className="bg-blue-500 hover:bg-blue-800 m-2 text-white rounded-xl p-3 cursor-pointer"
             value={category}
             onChange={(e) => setCategory(e.target.value)}
           >
@@ -128,7 +128,7 @@ function PostModal({ isModalOpen, setIsModalOpen }) {
           </select>
 
           <button
-            className="bg-red-500 hover:bg-red-800 m-2 text-white rounded-xl p-3"
+            className="bg-blue-500 hover:bg-blue-800 m-2 text-white rounded-xl p-3"
             onClick={addPost}
           >
             Post
