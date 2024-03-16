@@ -18,7 +18,7 @@ const storage = multer.diskStorage({
     cb(null, "/Users/Rathore/Github/sherlock-s-eye/backend/src/uploads/images");
   },
   filename: (req, file, cb) => {
-    console.log(req.body);
+    // console.log(req.body);
     cb(null, "temp." + req.body.fileType.split("/")[1]);
   },
 });
@@ -76,7 +76,7 @@ router.get(`/posts`, async (req, res) => {
 
 // Test Authentication
 router.get("/get", auth, (req, res) => {
-  console.log("At /get");
+  // console.log("At /get");
   return res.json({
     message: "Authentication Test successful",
     success: true,

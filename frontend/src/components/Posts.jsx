@@ -19,7 +19,7 @@ function Posts() {
       try {
         const response = await axios.get(`${BASE_URL}/posts`);
         setPosts(response.data.reverse());
-        console.log(response.data);
+        // console.log(response.data);
       } catch (err) {
         console.error(err);
       }
@@ -39,7 +39,7 @@ function Posts() {
           <Post
             key={key}
             content={post.content}
-            author={post.authorID}
+            author={post.userID}
             image={post.imageUrl || "https://picsum.photos/400/600"}
             title={post.title}
             id={post._id}

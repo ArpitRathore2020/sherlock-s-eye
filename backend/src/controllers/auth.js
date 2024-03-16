@@ -210,8 +210,8 @@ exports.verification = async (req, res) => {
       });
     }
 
-    console.log(user);
-    console.log(`${user.code} <> ${code}`);
+    // console.log(user);
+    // console.log(`${user.code} <> ${code}`);
     if (user.code == code) {
       await User.updateOne({ email }, { isEmailVerified: true });
       return res.status(200).json({

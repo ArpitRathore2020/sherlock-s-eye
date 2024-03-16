@@ -9,6 +9,12 @@ exports.postChat = async (req, res) => {
   const senderId = new mongoose.Types.ObjectId(req.body.data.sender);
   const receiverId = new mongoose.Types.ObjectId(req.body.data.reciever);
   const message = req.body.data.message;
+  if (message.trim() == "") {
+    console.log("empty string");
+    return res.status(411).json({
+      message: "string empty",
+    });
+  }
   // console.log(senderId);
   // console.log(receiverId);
   try {

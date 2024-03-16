@@ -22,7 +22,7 @@ function Categories() {
   }, []);
 
   return (
-    <div className="flex-col bg-gray-700 h-screen p-5">
+    <div className="flex-col bg-gray-700 h-full p-5">
       <b className="text-white text-lg mb-3">Top Categories</b>
       {/* displaying all the available categories of crime that we have */}
       {Object.entries(categoryRanking).map(([category, posts], key) => {

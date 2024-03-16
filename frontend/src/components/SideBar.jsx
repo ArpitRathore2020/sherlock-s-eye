@@ -13,10 +13,10 @@ function SideBar() {
       }`}
     >
       <div>
-        <div>
+        <div className="h-1/2 overflow-auto">
           <Categories />
         </div>
-        <div>
+        <div className="h-1/2 overflow-auto">
           <ChatsBar />
         </div>
       </div>

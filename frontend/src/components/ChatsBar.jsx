@@ -13,7 +13,7 @@ function ChatsBar() {
   const obj = jwtDecode(cookie.get("jwt_auth"));
   // console.log(cookie.get("jwt_auth"));
   const USER_ID = obj.id;
-  console.log(obj.id);
+  // console.log(obj.id);
 
   useEffect(() => {
     axios
@@ -53,7 +53,7 @@ function ChatComp({ reciever, conversation }) {
   const cookie = new Cookies();
   const obj = jwtDecode(cookie.get("jwt_auth"));
   const USER_ID = obj.id;
-  console.log(USER_ID);
+  // extracting user_id from jwt token we have saved in the browser cookies
   const navigate = useNavigate();
   return (
     <div
@@ -66,7 +66,6 @@ function ChatComp({ reciever, conversation }) {
         // console.log(receiverId);
         navigate("/home/messages", {
           state: {
-            messages: conversation.messages,
             reciever: reciever,
             recieverId: receiverId,
           },

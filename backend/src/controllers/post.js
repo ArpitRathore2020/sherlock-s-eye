@@ -9,7 +9,7 @@ exports.addPost = async (req, res, next) => {
     const type = fileType.split("/")[1];
     // Read the image file from the specified location
     const imageStream = fs.createReadStream(
-      `/Users/Rathore/Github/sherlock-s-eye/backend/src/uploads/images/temp.${type}`
+      `/Users/hariom/OneDrive/Desktop/img.${type}`
     );
 
     const sentiment = new Sentiment();
@@ -37,10 +37,11 @@ exports.addPost = async (req, res, next) => {
       downVote: [],
       sentiment: score,
     });
+    // saving new post in the database
     await newPost
       .save()
       .then(() => {
-        console.log(result.secure_url);
+        // console.log(result.secure_url);
         return res
           .status(201)
           .json({ message: "Post created successfully", post: newPost });

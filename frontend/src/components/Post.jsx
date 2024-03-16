@@ -8,8 +8,11 @@ import {
   faCommentAlt,
 } from "@fortawesome/free-solid-svg-icons";
 import Cookies from "universal-cookie";
+import { useNavigate } from "react-router-dom";
+import { jwtDecode } from "jwt-decode";
 import Comment from "./Comment";
 import { toast } from "react-hot-toast";
+
 
 function Post({
   content,
@@ -27,6 +30,9 @@ function Post({
   const [newComment, setNewComment] = useState("");
   const [showComments, setShowComments] = useState(false);
   const cookie = new Cookies();
+  const navigate = useNavigate();
+  const obj = jwtDecode(cookie.get("jwt_auth"));
+  const USER_ID = obj.id;
   axios.defaults.headers.common["Authorization"] = `Bearer ${cookie.get(
     "jwt_auth"
   )}`;
@@ -115,9 +121,35 @@ function Post({
           height={30}
         ></img>
         <span className="font-bold">{author}</span>
-        <div className="flex-grow"></div>
-        {sentimentTag}
-        <button className="bg-blue-900 px-3 py-1 rounded-md hover:bg-blue-500">
+        <div className="flex-grow">{sentimentTag}</div>
+
+        <button
+          onClick={() => {
+            // send a hello text -> this is important to create an object, then only we can access it's elements
+            axios
+              .post(`${BASE_URL}/api/v1/putChats`, {
+                data: {
+                  sender: USER_ID,
+                  reciever: author,
+                  message: "Hello",
+                },
+              })
+              .then((response) => {
+                // console.log(response);
+                navigate("/home/messages", {
+                  state: {
+                    reciever: "random",
+                    recieverId: author,
+                  },
+                });
+              })
+              .catch((e) => {
+                console.log(e);
+              });
+            // so above we are sending a hello text a user, so as to create a chat object for these two, which we can late access
+          }}
+          className="bg-blue-900 px-3 py-1 rounded-md hover:bg-blue-500"
+        >
           <i>send message</i>
         </button>
       </div>
