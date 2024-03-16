@@ -14,6 +14,7 @@ import Comment from "./Comment";
 import { toast } from "react-hot-toast";
 
 function Post({
+  name,
   content,
   author,
   image,
@@ -110,16 +111,16 @@ function Post({
   }
 
   return (
-    <div className="bg-gray-800 hover:bg-gray-700 rounded-md p-5 m-4 text-white">
+    <div className="bg-black hover:bg-slate-950 rounded-lg p-5 m-4 text-white border border-gray-600">
       <div className="flex items-center">
         <img
           className="rounded-full mr-2"
-          src="https://picsum.photos/200"
+          src="https://winaero.com/blog/wp-content/uploads/2019/09/Chrome-Incognito-Mode-Icon-256.png"
           alt="userprofile"
           width={30}
           height={30}
         ></img>
-        <span className="font-bold">{author}</span>
+        <span className="font-bold">{name}</span>
         <div className="flex-grow">{sentimentTag}</div>
 
         <button
@@ -164,7 +165,7 @@ function Post({
         <img
           src={image}
           alt="media"
-          className="w-full h-auto rounded-md max-w-[400px]"
+          className="block mx-auto w-full h-auto rounded-md max-w-[400px]"
         />
       </div>
       <div className="mt-2">{content}</div>
