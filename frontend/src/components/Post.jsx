@@ -13,7 +13,6 @@ import { jwtDecode } from "jwt-decode";
 import Comment from "./Comment";
 import { toast } from "react-hot-toast";
 
-
 function Post({
   content,
   author,
@@ -126,6 +125,10 @@ function Post({
         <button
           onClick={() => {
             // send a hello text -> this is important to create an object, then only we can access it's elements
+            if (USER_ID == author) {
+              toast.error("You cannot text yourself");
+              return;
+            }
             axios
               .post(`${BASE_URL}/api/v1/putChats`, {
                 data: {
