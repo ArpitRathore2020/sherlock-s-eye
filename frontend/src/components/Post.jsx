@@ -124,11 +124,12 @@ function Post({
 
         <button
           onClick={() => {
-            // send a hello text -> this is important to create an object, then only we can access it's elements
+            // adding a check so that a user does not sends text to itself
             if (USER_ID == author) {
               toast.error("You cannot text yourself");
               return;
             }
+            // send a hello text -> this is important to create an object, then only we can access it's elements
             axios
               .post(`${BASE_URL}/api/v1/putChats`, {
                 data: {
