@@ -12,6 +12,7 @@ import { useNavigate } from "react-router-dom";
 import { jwtDecode } from "jwt-decode";
 import Comment from "./Comment";
 import { toast } from "react-hot-toast";
+import CardFlip from "react-card-flip";
 
 function Post({
   name,
@@ -28,7 +29,8 @@ function Post({
   const [downVotes, setDownVotes] = useState(initialDownVotes);
   const [comments, setComments] = useState([]);
   const [newComment, setNewComment] = useState("");
-  const [showComments, setShowComments] = useState(false);
+  const [isFlipped, setIsFlipped] = useState(false);
+
   const cookie = new Cookies();
   const navigate = useNavigate();
   const obj = jwtDecode(cookie.get("jwt_auth"));
@@ -87,7 +89,6 @@ function Post({
       });
       setNewComment("");
       toast.success("Comment added successfully");
-      setShowComments(true); // Show comments immediately after adding a new comment
       fetchComments(); // Fetch comments again to update the list
     } catch (error) {
       console.error("Failed to add comment: ", error);
@@ -111,108 +112,127 @@ function Post({
   }
 
   return (
-    <div className="bg-black hover:bg-slate-950 rounded-lg p-5 m-4 text-white border border-gray-600">
-      <div className="flex items-center">
-        <img
-          className="rounded-full mr-2"
-          src="https://winaero.com/blog/wp-content/uploads/2019/09/Chrome-Incognito-Mode-Icon-256.png"
-          alt="userprofile"
-          width={30}
-          height={30}
-        ></img>
-        <span className="font-bold">{name}</span>
-        <div className="flex-grow">{sentimentTag}</div>
-
-        <button
-          onClick={() => {
-            // adding a check so that a user does not sends text to itself
-            if (USER_ID == author) {
-              toast.error("You cannot text yourself");
-              return;
-            }
-            // send a hello text -> this is important to create an object, then only we can access it's elements
-            axios
-              .post(`${BASE_URL}/api/v1/putChats`, {
-                data: {
-                  sender: USER_ID,
-                  reciever: author,
-                  message: "Hello",
-                },
-              })
-              .then((response) => {
-                // console.log(response);
-                navigate("/home/messages", {
-                  state: {
-                    reciever: "random",
-                    recieverId: author,
-                  },
-                });
-              })
-              .catch((e) => {
-                console.log(e);
-              });
-            // so above we are sending a hello text a user, so as to create a chat object for these two, which we can late access
-          }}
-          className="bg-blue-900 px-3 py-1 rounded-md hover:bg-blue-500"
-        >
-          <i>send message</i>
-        </button>
-      </div>
-      <div className="mt-2">
-        <h2 className="text-xl font-bold">{title}</h2>
-      </div>
-      <div className="mt-2">
-        <img
-          src={image}
-          alt="media"
-          className="block mx-auto w-full h-auto rounded-md max-w-[400px]"
-        />
-      </div>
-      <div className="mt-2">{content}</div>
-      <div className="mt-4 flex justify-between items-center">
+    <CardFlip isFlipped={isFlipped} flipDirection="horizontal">
+      <div className="bg-black hover:bg-slate-950 rounded-lg p-5 m-4 text-white border border-gray-600">
+        {/* Front of the card */}
         <div className="flex items-center">
+          <img
+            className="rounded-full mr-2"
+            src="https://winaero.com/blog/wp-content/uploads/2019/09/Chrome-Incognito-Mode-Icon-256.png"
+            alt="userprofile"
+            width={30}
+            height={30}
+          ></img>
+          <span className="font-bold">{name}</span>
+          <div className="flex-grow">{sentimentTag}</div>
           <button
-            className="text-gray-400 hover:text-gray-200"
-            onClick={handleUpVote}
+            onClick={() => {
+              // adding a check so that a user does not send a text to itself
+              if (USER_ID == author) {
+                toast.error("You cannot text yourself");
+                return;
+              }
+              axios
+                .post(`${BASE_URL}/api/v1/putChats`, {
+                  data: {
+                    sender: USER_ID,
+                    reciever: author,
+                    message: "Hello",
+                  },
+                })
+                .then(() => {
+                  navigate("/home/messages", {
+                    state: {
+                      reciever: "random",
+                      recieverId: author,
+                    },
+                  });
+                })
+                .catch((e) => {
+                  console.log(e);
+                });
+            }}
+            className="bg-blue-900 px-3 py-1 rounded-md hover:bg-blue-500"
           >
-            <FontAwesomeIcon icon={faArrowUp} />
+            <i>send message</i>
           </button>
-          <span className="mx-2">{upVotes}</span>
-          <button
-            className="text-gray-400 hover:text-gray-200"
-            onClick={handleDownVote}
-          >
-            <FontAwesomeIcon icon={faArrowDown} />
-          </button>
-          <span className="mx-2">{downVotes}</span>
         </div>
-        <div>
-          <button
-            className="text-gray-400 hover:text-gray-200"
-            onClick={() => setShowComments(!showComments)}
-          >
-            <FontAwesomeIcon icon={faCommentAlt} /> Comments
-          </button>
+        <div className="mt-2">
+          <h2 className="text-xl font-bold">{title}</h2>
+        </div>
+        <div className="mt-2">
+          <img
+            src={image}
+            alt="media"
+            className="block mx-auto w-full h-auto rounded-md max-w-[400px]"
+          />
+        </div>
+        <div className="mt-2">{content}</div>
+        <div className="mt-4 flex justify-between items-center">
+          <div className="flex items-center">
+            <button
+              className="text-gray-400 hover:text-gray-200"
+              onClick={handleUpVote}
+            >
+              <FontAwesomeIcon icon={faArrowUp} />
+            </button>
+            <span className="mx-2">{upVotes}</span>
+            <button
+              className="text-gray-400 hover:text-gray-200"
+              onClick={handleDownVote}
+            >
+              <FontAwesomeIcon icon={faArrowDown} />
+            </button>
+            <span className="mx-2">{downVotes}</span>
+          </div>
+          <div>
+            <button
+              className="text-gray-400 hover:text-gray-200"
+              onClick={() => {
+                setIsFlipped(true);
+              }}
+            >
+              <FontAwesomeIcon icon={faCommentAlt} /> Comments
+            </button>
+          </div>
         </div>
       </div>
-      <div className="mt-4">
-        <textarea
-          className="w-full p-2 rounded-md border border-gray-600 bg-gray-600"
-          placeholder="Add a comment..."
-          value={newComment}
-          onChange={(e) => setNewComment(e.target.value)}
-        ></textarea>
-        <button
-          className="mt-2 bg-blue-900 text-white px-3 py-1 rounded-md hover:bg-blue-500"
-          onClick={() => {
-            handleAddComment();
-            fetchComments();
-          }}
+      <div
+        className="bg-black hover:bg-slate-950 rounded-lg p-5 m-4 text-white border border-gray-600"
+        style={{ overflowY: "auto" }}
+      >
+        {/* Back of the card */}
+        <div
+          className="mt-4"
+          style={{ display: "flex", flexDirection: "column", height: "100%" }}
         >
-          Add Comment
-        </button>
-        {showComments && (
-          <div className="mt-4">
+          <div style={{ flex: "none" }}>
+            <textarea
+              className="w-full p-2 rounded-md border border-gray-600 bg-gray-600"
+              placeholder="Add a comment..."
+              value={newComment}
+              onChange={(e) => setNewComment(e.target.value)}
+            ></textarea>
+            <button
+              className="mt-2 bg-blue-900 text-white px-3 py-1 rounded-md hover:bg-blue-500"
+              onClick={() => {
+                handleAddComment();
+                fetchComments();
+              }}
+            >
+              Add Comment
+            </button>
+            <button
+              className="mt-2 ml-2 bg-blue-900 text-white px-3 py-1 rounded-md hover:bg-blue-500"
+              onClick={() => setIsFlipped(false)}
+            >
+              Go back
+            </button>
+          </div>
+          <div
+            className="mt-4"
+            style={{ maxHeight: "300px", overflowY: "auto", flex: "1" }}
+          >
             {comments &&
               comments
                 .slice(0)
@@ -226,9 +246,9 @@ function Post({
                   />
                 ))}
           </div>
-        )}
+        </div>
       </div>
-    </div>
+    </CardFlip>
   );
 }
 

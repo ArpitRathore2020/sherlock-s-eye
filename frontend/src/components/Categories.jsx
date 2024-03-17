@@ -7,23 +7,28 @@ function Categories() {
   const { expanded, setExpanded } = useContext(ExpandedContext);
   const [categoryRanking, setCategoryRanking] = useState({});
 
-  useEffect(() => {
-    async function fetchCategoryRanking() {
-      try {
-        const response = await axios.get(`${BASE_URL}/getTopCategories`);
-        setCategoryRanking(response.data);
-        console.log(response.data);
-      } catch (error) {
-        console.error("Failed to fetch category ranking data:", error);
-      }
+  async function fetchCategoryRanking() {
+    try {
+      const response = await axios.get(`${BASE_URL}/getTopCategories`);
+      setCategoryRanking(response.data);
+      console.log(response.data);
+    } catch (error) {
+      alert("gone");
+      console.error("Failed to fetch category ranking data:", error);
     }
-
-    fetchCategoryRanking();
-  }, []);
+  }
 
   return (
     <div className="flex-col bg-black h-full p-5">
-      <b className="text-gray-200 text-lg mb-3">Top Categories</b>
+      <div className="flex justify-between items-center mb-3">
+        <b className="text-gray-200 text-lg">Top Categories</b>
+        <button
+          className="bg-gray-600 hover:bg-gray-500 rounded-md px-3 py-1 text-gray-200"
+          onClick={fetchCategoryRanking}
+        >
+          Refresh
+        </button>
+      </div>
       {/* displaying all the available categories of crime that we have */}
       {Object.entries(categoryRanking).map(([category, posts], key) => {
         return (
