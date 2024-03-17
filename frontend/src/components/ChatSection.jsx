@@ -43,7 +43,7 @@ function ChatSection() {
 
   // console.log(recieverId);
   return (
-    <div className="flex-col border border-gray-200 h-screen">
+    <div className="flex-col border  border-gray-100 bg-gray-200  dark:bg-black h-screen">
       <ChatTopBar
         className="h-1/6"
         recieverImage="https://winaero.com/blog/wp-content/uploads/2019/09/Chrome-Incognito-Mode-Icon-256.png"
@@ -63,7 +63,7 @@ function ChatSection() {
 // top bar of the chat section where we can see the information about the receiver
 function ChatTopBar({ recieverImage, recieverUserName }) {
   return (
-    <div className="bg-gray-600 flex p-4 w-full">
+    <div className="bg-gray-400 dark:bg-gray-600 flex p-4 w-full">
       <img
         className="w-10 h-10 rounded-full mx-2"
         src={recieverImage}
@@ -95,7 +95,7 @@ function ChatFooter({ senderId, recieverId }) {
     setCurrentChat("");
   };
   return (
-    <div className="bg-gray-600 flex w-full my-2">
+    <div className="bg-gray-400 dark:bg-gray-600 flex w-full my-2">
       <input
         value={currentChat}
         onChange={(event) => {
@@ -106,7 +106,7 @@ function ChatFooter({ senderId, recieverId }) {
             postChats();
           }
         }}
-        className="rounded-full p-3 m-3 w-full"
+        className="rounded-full p-3 m-3 w-full dark:bg-black text-black dark:text-white"
         type="text"
         placeholder="Enter your text here"
       />
@@ -128,7 +128,7 @@ function Chats({ recieverImage, messages }) {
   const USER_ID = obj.id;
   // console.log(messages);
   return (
-    <div className="flex-col h-fit w-full overflow-auto no-scrollbar">
+    <div className="bg-gray-200 text-black dark:text-white dark:bg-black flex-col h-fit w-full overflow-auto no-scrollbar">
       {messages.map((chat, key) => {
         // console.log(messages);
         let msgClass = "",
@@ -136,11 +136,11 @@ function Chats({ recieverImage, messages }) {
         let image =
           "https://winaero.com/blog/wp-content/uploads/2019/09/Chrome-Incognito-Mode-Icon-256.png";
         if (chat.direction[0].from == USER_ID) {
-          msgClass = "bg-gray-500 rounded-xl p-2 flex";
+          msgClass = "bg-gray-300 dark:bg-gray-500 rounded-xl p-2 flex";
           divClass = "flex m-1 flex-row-reverse";
           image = recieverImage;
         } else {
-          msgClass = "bg-gray-600 rounded-xl p-2 flex";
+          msgClass = "bg-gray-400 dark:bg-gray-600 rounded-xl p-2 flex";
         }
         return (
           <div key={key} className={divClass}>

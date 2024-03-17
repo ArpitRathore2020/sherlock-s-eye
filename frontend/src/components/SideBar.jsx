@@ -8,7 +8,7 @@ function SideBar() {
   return (
     <div
       // toggling the width onclick
-      className={`bg-black overflow-auto transition-all h-screen fixed  ${
+      className={`bg-gray-50 dark:bg-black overflow-auto transition-all h-screen fixed  ${
         expanded ? "w-40" : "w-0"
       }`}
     >
