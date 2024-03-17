@@ -171,14 +171,14 @@ function Post({
         <div className="mt-4 flex justify-between items-center">
           <div className="flex items-center">
             <button
-              className="text-gray-400 hover:text-gray-200"
+              className="text-gray-400 hover:text-gray-600 dark:hover:text-gray-2000"
               onClick={handleUpVote}
             >
               <FontAwesomeIcon icon={faArrowUp} />
             </button>
             <span className="mx-2">{upVotes}</span>
             <button
-              className="text-gray-400 hover:text-gray-200"
+              className="text-gray-400 hover:text-gray-600 dark:hover:text-gray-200"
               onClick={handleDownVote}
             >
               <FontAwesomeIcon icon={faArrowDown} />
@@ -187,7 +187,7 @@ function Post({
           </div>
           <div>
             <button
-              className="text-gray-400 hover:text-gray-200"
+              className="text-gray-400 hover:text-gray-600 dark:hover:text-gray-200"
               onClick={() => {
                 setIsFlipped(true);
               }}

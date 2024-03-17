@@ -79,14 +79,14 @@ function PostModal({ isModalOpen, setIsModalOpen }) {
           </div>
           <div className="flex">
             <input
-              className="p-4 border-none bg-gray-50 dark:bg-gray-600 text-3xl w-full"
+              className="p-4 border-none bg-gray-50 dark:bg-gray-600 text-3xl w-full outline-none"
               placeholder="Title"
               onChange={(e) => setTitle(e.target.value)}
             ></input>
           </div>
           <div className="flex">
             <input
-              className="p-4 border-none bg-gray-50 dark:bg-gray-600 w-full h-full"
+              className="p-4 border-none bg-gray-50 dark:bg-gray-600 w-full h-full outline-none"
               placeholder="What do you want to write about"
               onChange={(e) => {
                 setContent(e.target.value);
