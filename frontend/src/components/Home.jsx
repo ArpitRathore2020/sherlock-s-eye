@@ -32,7 +32,7 @@ function Home() {
   //   }, []);
 
   return (
-    <div className="flex-col h-screen bg-black overflow-hidden">
+    <div className="flex-col h-screen bg-gray-50 dark:bg-black overflow-hidden">
       {/* <div className="flex-col h-screen bg-gray-400"> */}
       <ExpandedContext.Provider value={{ expanded, setExpanded }}>
         <TopBar loggedIn={true} />

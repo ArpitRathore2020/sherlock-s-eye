@@ -111,7 +111,7 @@ function Post({
   }
 
   return (
-    <div className="bg-black hover:bg-slate-950 rounded-lg p-5 m-4 text-white border border-gray-600">
+    <div className="bg-gray-50 hover:bg-slate-200 dark:bg-black dark:hover:bg-slate-950 rounded-lg p-5 m-4 text-black dark:text-white border border-gray-300 dark:border-gray-600">
       <div className="flex items-center">
         <img
           className="rounded-full mr-2"
@@ -153,7 +153,7 @@ function Post({
               });
             // so above we are sending a hello text a user, so as to create a chat object for these two, which we can late access
           }}
-          className="bg-blue-900 px-3 py-1 rounded-md hover:bg-blue-500"
+          className="bg-blue-300 hover:bg-blue-400 dark:bg-blue-700 px-3 py-1 rounded-md dark:hover:bg-blue-500"
         >
           <i>send message</i>
         </button>
@@ -172,14 +172,14 @@ function Post({
       <div className="mt-4 flex justify-between items-center">
         <div className="flex items-center">
           <button
-            className="text-gray-400 hover:text-gray-200"
+            className="text-gray-400 hover:text-gray-600 dark:hover:text-gray-200"
             onClick={handleUpVote}
           >
             <FontAwesomeIcon icon={faArrowUp} />
           </button>
           <span className="mx-2">{upVotes}</span>
           <button
-            className="text-gray-400 hover:text-gray-200"
+            className="text-gray-400 hover:text-gray-600 dark:hover:text-gray-200"
             onClick={handleDownVote}
           >
             <FontAwesomeIcon icon={faArrowDown} />
@@ -188,7 +188,7 @@ function Post({
         </div>
         <div>
           <button
-            className="text-gray-400 hover:text-gray-200"
+            className="text-gray-400 hover:text-gray-600 dark:hover:text-gray-200"
             onClick={() => setShowComments(!showComments)}
           >
             <FontAwesomeIcon icon={faCommentAlt} /> Comments
@@ -196,14 +196,14 @@ function Post({
         </div>
       </div>
       <div className="mt-4">
-        <textarea
-          className="w-full p-2 rounded-md border border-gray-600 bg-gray-600"
+        <input
+          className="w-full p-2 rounded-md border border-gray-400 bg-gray-200 dark:border-gray-600 dark:bg-gray-600"
           placeholder="Add a comment..."
           value={newComment}
           onChange={(e) => setNewComment(e.target.value)}
-        ></textarea>
+        ></input>
         <button
-          className="mt-2 bg-blue-900 text-white px-3 py-1 rounded-md hover:bg-blue-500"
+          className="mt-2 bg-blue-300 hover:bg-blue-400 dark:bg-blue-900  px-3 py-1 rounded-md dark:hover:bg-blue-500"
           onClick={() => {
             handleAddComment();
             fetchComments();

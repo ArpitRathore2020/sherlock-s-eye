@@ -29,8 +29,8 @@ function ChatsBar() {
 
   const navigate = useNavigate();
   return (
-    <div className="flex-col bg-black h-full text-white">
-      <b>CHATS</b>
+    <div className="flex-col bg-gray-50 dark:bg-black h-full text-white">
+      <b className="flex justify-center text-black dark:text-white">Chats</b>
       {conversations.map((conversation, key) => {
         const reciever =
           conversation.person1._id == USER_ID
@@ -65,7 +65,7 @@ function ChatComp({ reciever, conversation, navigate, USER_ID }) {
           },
         });
       }}
-      className="flex bg-gray-500 hover:bg-gray-400 m-2 p-2 rounded-xl"
+      className="flex text-black dark:text-white bg-gray-300 hover:bg-gray-400 dark:bg-gray-500 dark:hover:bg-gray-400 m-2 p-2 rounded-xl"
     >
       <b>{reciever}</b>:
       <i>{conversation.messages[conversation.messages.length - 1].message}</i>

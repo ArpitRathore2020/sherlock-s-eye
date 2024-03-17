@@ -68,21 +68,25 @@ function PostModal({ isModalOpen, setIsModalOpen }) {
       <div style={OVERLAY_STYLES}>
         <div
           style={MODAL_STYLES}
-          className="rounded-xl bg-gray-600 w-full max-w-lg text-white border-2 flex-col overflow-auto "
+          className="rounded-xl bg-gray-50 dark:bg-gray-600 w-full max-w-lg text-gray-500 dark:text-white border border-gray-600 dark:border-gray-50 flex-col overflow-auto "
         >
           <div className="flex justify-end h-4">
-            <RxCross2 onClick={() => setIsModalOpen(false)} color="white" />
+            <RxCross2
+              onClick={() => setIsModalOpen(false)}
+              color="white"
+              className="rounded-sm bg-gray-300 hover:bg-gray-400 dark:bg-gray-300 "
+            />
           </div>
           <div className="flex">
             <input
-              className="p-4 border-none bg-gray-600 text-3xl w-full"
+              className="p-4 border-none bg-gray-50 dark:bg-gray-600 text-3xl w-full"
               placeholder="Title"
               onChange={(e) => setTitle(e.target.value)}
             ></input>
           </div>
           <div className="flex">
             <input
-              className="p-4 border-none bg-gray-600 w-full h-full"
+              className="p-4 border-none bg-gray-50 dark:bg-gray-600 w-full h-full"
               placeholder="What do you want to write about"
               onChange={(e) => {
                 setContent(e.target.value);
@@ -111,13 +115,13 @@ function PostModal({ isModalOpen, setIsModalOpen }) {
           />
           <label
             htmlFor="fileInput"
-            className="bg-blue-500 hover:bg-blue-800 m-2 text-white rounded-xl p-3 cursor-pointer"
+            className="bg-blue-400 hover:bg-blue-500 dark:bg-blue-500 dark:hover:bg-blue-800 m-2 text-white rounded-xl p-3 cursor-pointer"
           >
             Upload File
           </label>
 
           <select
-            className="bg-blue-500 hover:bg-blue-800 m-2 text-white rounded-xl p-3 cursor-pointer"
+            className="bg-blue-400 hover:bg-blue-500 dark:bg-blue-500 dark:hover:bg-blue-800 m-2 text-white rounded-xl p-3 cursor-pointer"
             value={category}
             onChange={(e) => setCategory(e.target.value)}
           >
@@ -128,7 +132,7 @@ function PostModal({ isModalOpen, setIsModalOpen }) {
           </select>
 
           <button
-            className="bg-blue-500 hover:bg-blue-800 m-2 text-white rounded-xl p-3"
+            className="bg-blue-400 hover:bg-blue-500 dark:bg-blue-500 dark:hover:bg-blue-800 m-2 text-white rounded-xl p-3"
             onClick={addPost}
           >
             Post

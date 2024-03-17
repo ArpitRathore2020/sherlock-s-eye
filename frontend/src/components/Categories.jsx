@@ -22,16 +22,20 @@ function Categories() {
   }, []);
 
   return (
-    <div className="flex-col bg-black h-full p-5">
-      <b className="text-gray-200 text-lg mb-3">Top Categories</b>
+    <div className="flex-col bg-gray-50 dark:bg-black h-full p-5">
+      <b className="text-black dark:text-gray-200  text-lg mb-3 flex justify-center">
+        Top Categories
+      </b>
       {/* displaying all the available categories of crime that we have */}
       {Object.entries(categoryRanking).map(([category, posts], key) => {
         return (
           <div
             key={key}
-            className="bg-gray-600 hover:bg-gray-500 rounded-xl p-2 mb-2"
+            className="bg-gray-300 dark:bg-gray-600 hover:bg-gray-400 rounded-xl p-2 mb-2"
           >
-            <h2 className="text-gray-200 mb-2"># {category}</h2>
+            <h2 className="dark:text-gray-200 mb-2">
+              <b># {category}</b>
+            </h2>
             <ul>
               {posts.map((post, index) => (
                 <li key={index} className="flex justify-between items-center">

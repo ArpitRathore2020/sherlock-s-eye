@@ -9,7 +9,7 @@ function Comment({ content, author, timestamp }) {
   });
 
   return (
-    <div className="border p-2 mt-2 bg-gray-800 rounded-lg text-white">
+    <div className=" p-2 mt-2 bg-gray-300 dark:bg-gray-800 rounded-lg text-gray-600 dark:text-white">
       <div className="text-lg font-bold">
         {authorName}
         <span className="ml-2 text-sm font-normal">- {commentTime}</span>
