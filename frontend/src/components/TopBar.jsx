@@ -4,17 +4,18 @@ import { useContext } from "react";
 import ExpandedContext from "./context";
 import { FaHome } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
+import ThemeToggleSwitch from "./switch/ThemeToggleSwitch";
 
 function TopBar() {
   const { expanded, setExpanded } = useContext(ExpandedContext);
   const navigate = useNavigate();
   return (
-    <div className="flex justify-between bg-blue-800 text-white">
+    <div className="flex justify-between bg-blue-300 dark:bg-blue-800 text-white">
       <div className="flex">
         <div className="block sm:hidden p-4 pb-2  justify-between items-center">
           <button
             onClick={() => setExpanded((curr) => !curr)}
-            className="p-1.5 rounded-lg bg-gray-700 hover:bg-gray-600"
+            className="p-1.5 rounded-lg bg-blue-400 hover:bg-blue-500 dark:bg-blue-500 dark:hover:bg-blue-600"
           >
             {expanded ? (
               <ChevronFirst color="white" />
@@ -44,6 +45,7 @@ function TopBar() {
       </div>
 
       <div className="flex items-center">
+        <ThemeToggleSwitch />
         {/* profile */}
         <img
           className="rounded-full mx-4 w-10 h-10"
