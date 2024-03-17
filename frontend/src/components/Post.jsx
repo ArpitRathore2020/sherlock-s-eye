@@ -113,7 +113,7 @@ function Post({
 
   return (
     <CardFlip isFlipped={isFlipped} flipDirection="horizontal">
-      <div className="bg-black hover:bg-slate-950 rounded-lg p-5 m-4 text-white border border-gray-600">
+      <div className="bg-gray-50 hover:bg-slate-200 dark:bg-black dark:hover:bg-slate-950 rounded-lg p-5 m-4 text-black dark:text-white border border-gray-300 dark:border-gray-600">
         {/* Front of the card */}
         <div className="flex items-center">
           <img
@@ -152,7 +152,7 @@ function Post({
                   console.log(e);
                 });
             }}
-            className="bg-blue-900 px-3 py-1 rounded-md hover:bg-blue-500"
+            className=" bg-blue-400 hover:bg-blue-500 dark:bg-blue-900  px-3 py-1 rounded-md dark:hover:bg-blue-500 text-white"
           >
             <i>send message</i>
           </button>
@@ -198,23 +198,23 @@ function Post({
         </div>
       </div>
       <div
-        className="bg-black hover:bg-slate-950 rounded-lg p-5 m-4 text-white border border-gray-600"
+        className="bg-gray-50 hover:bg-slate-200 dark:bg-black dark:hover:bg-slate-950 rounded-lg p-5 m-4 border border-gray-600"
         style={{ overflowY: "auto" }}
       >
         {/* Back of the card */}
         <div
-          className="mt-4"
+          className=" bg-gray-50 hover:bg-slate-200 dark:bg-black dark:hover:bg-slate-950 rounded-lg text-white dark:text-white "
           style={{ display: "flex", flexDirection: "column", height: "100%" }}
         >
           <div style={{ flex: "none" }}>
             <textarea
-              className="w-full p-2 rounded-md border border-gray-600 bg-gray-600"
+              className="text-black dark:text-white w-full p-2 rounded-md border border-gray-400 bg-gray-200 dark:border-gray-600 dark:bg-gray-600"
               placeholder="Add a comment..."
               value={newComment}
               onChange={(e) => setNewComment(e.target.value)}
             ></textarea>
             <button
-              className="mt-2 bg-blue-900 text-white px-3 py-1 rounded-md hover:bg-blue-500"
+              className="mt-2 bg-blue-400 hover:bg-blue-500 dark:bg-blue-900  px-3 py-1 rounded-md dark:hover:bg-blue-500"
               onClick={() => {
                 handleAddComment();
                 fetchComments();
@@ -223,7 +223,7 @@ function Post({
               Add Comment
             </button>
             <button
-              className="mt-2 ml-2 bg-blue-900 text-white px-3 py-1 rounded-md hover:bg-blue-500"
+              className="mt-2 ml-2 bg-blue-400 hover:bg-blue-500 dark:bg-blue-900  px-3 py-1 rounded-md dark:hover:bg-blue-500"
               onClick={() => setIsFlipped(false)}
             >
               Go back

@@ -19,11 +19,13 @@ function Categories() {
   }
 
   return (
-    <div className="flex-col bg-black h-full p-5">
+    <div className="flex-col bg-gray-50 dark:bg-black h-full p-5">
       <div className="flex justify-between items-center mb-3">
-        <b className="text-gray-200 text-lg">Top Categories</b>
+        <b className="text-black dark:text-gray-200  text-lg mb-3 flex justify-center">
+          Top Categories
+        </b>
         <button
-          className="bg-gray-600 hover:bg-gray-500 rounded-md px-3 py-1 text-gray-200"
+          className="bg-gray-300 text-black dark:bg-gray-600 dark:hover:bg-gray-500 rounded-md px-3 py-1 dark:text-gray-200"
           onClick={fetchCategoryRanking}
         >
           Refresh
@@ -34,9 +36,11 @@ function Categories() {
         return (
           <div
             key={key}
-            className="bg-gray-600 hover:bg-gray-500 rounded-xl p-2 mb-2"
+            className="bg-gray-300 dark:bg-gray-600 hover:bg-gray-400 rounded-xl p-2 mb-2"
           >
-            <h2 className="text-gray-200 mb-2"># {category}</h2>
+            <h2 className="text-black dark:text-gray-200 mb-2">
+              <b># {category}</b>
+            </h2>
             <ul>
               {posts.map((post, index) => (
                 <li key={index} className="flex justify-between items-center">
