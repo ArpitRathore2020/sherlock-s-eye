@@ -132,6 +132,8 @@ function Post({
                 toast.error("You cannot text yourself");
                 return;
               }
+              console.log(author);
+              console.log(USER_ID);
               axios
                 .post(`${BASE_URL}/api/v1/putChats`, {
                   data: {
@@ -203,7 +205,7 @@ function Post({
       >
         {/* Back of the card */}
         <div
-          className=" bg-gray-50 hover:bg-slate-200 dark:bg-black dark:hover:bg-slate-950 rounded-lg text-white dark:text-white "
+          className=" bg-gray-50 hover:bg-slate-200 dark:bg-black dark:hover:bg-slate-950 rounded-lg text-white dark:text-white"
           style={{ display: "flex", flexDirection: "column", height: "100%" }}
         >
           <div style={{ flex: "none" }}>
@@ -230,7 +232,7 @@ function Post({
             </button>
           </div>
           <div
-            className="mt-4"
+            className="mt-4 no-scrollbar"
             style={{ maxHeight: "300px", overflowY: "auto", flex: "1" }}
           >
             {comments &&

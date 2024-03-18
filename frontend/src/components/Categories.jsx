@@ -9,21 +9,22 @@ function Categories() {
 
   async function fetchCategoryRanking() {
     try {
-      const response = await axios.get(`${BASE_URL}/getTopCategories`);
-      setCategoryRanking(response.data);
+      const response = await axios.get(`${BASE_URL}/getTopCategories`); // fetcing top categories from backed
+      setCategoryRanking(response.data); // set the ranking object to the recieved state
       console.log(response.data);
     } catch (error) {
-      alert("gone");
+      alert(`gone ${error}`);
       console.error("Failed to fetch category ranking data:", error);
     }
   }
-
+  // top categories section on the left of the screen
   return (
     <div className="flex-col bg-gray-50 dark:bg-black h-full p-5">
       <div className="flex justify-between items-center mb-3">
         <b className="text-black dark:text-gray-200  text-lg mb-3 flex justify-center">
           Top Categories
         </b>
+        {/* button to refresh the top categories section */}
         <button
           className="bg-gray-300 text-black dark:bg-gray-600 dark:hover:bg-gray-500 rounded-md px-3 py-1 dark:text-gray-200"
           onClick={fetchCategoryRanking}
@@ -42,15 +43,20 @@ function Categories() {
               <b># {category}</b>
             </h2>
             <ul>
-              {posts.map((post, index) => (
-                <li key={index} className="flex justify-between items-center">
-                  <div>
-                    <span>{post.title}</span>
-                    <span>{post._id}</span>
-                  </div>
-                  <div>Upvotes: {post.upVotes}</div>
-                </li>
-              ))}
+              {posts.map(
+                (
+                  post,
+                  index // displaying all the post categories
+                ) => (
+                  <li key={index} className="flex justify-between items-center">
+                    <div>
+                      <span>{post.title}</span>
+                      <span>{post._id}</span>
+                    </div>
+                    <div>Upvotes: {post.upVotes}</div>
+                  </li>
+                )
+              )}
             </ul>
           </div>
         );
