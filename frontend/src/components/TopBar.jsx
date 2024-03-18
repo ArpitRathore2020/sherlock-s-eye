@@ -35,13 +35,13 @@ function TopBar() {
             color="white"
           />
         </div>
-        <img
+        {/* <img
           className="py-2 mx-4"
           src={eagle}
           alt="logo here"
           height={40}
           width={40}
-        ></img>
+        ></img> */}
       </div>
 
       <div className="flex items-center">

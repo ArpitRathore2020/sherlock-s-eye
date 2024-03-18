@@ -8,8 +8,8 @@ function SideBar() {
   return (
     <div
       // toggling the width onclick
-      className={`bg-gray-50 dark:bg-black overflow-auto transition-all h-screen fixed  ${
-        expanded ? "w-40" : "w-0"
+      className={`bg-gray-50 dark:bg-black overflow-auto transition-all h-screen fixed z-10 border-r border-gray-300 dark:border-gray-600 ${
+        expanded ? "w-2/3" : "w-0"
       }`}
     >
       <div>

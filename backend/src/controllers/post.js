@@ -86,7 +86,7 @@ exports.upVote = async (req, res, next) => {
     }
 
     await post.save();
-
+    // if no error occured
     return res.status(200).json({
       message: "Upvote updated successfully",
       upVotes: post.upVote.length,
