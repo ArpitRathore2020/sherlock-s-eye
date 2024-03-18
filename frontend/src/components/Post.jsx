@@ -99,14 +99,20 @@ function Post({
   let sentimentTag = null;
   if (sentiment > 0) {
     sentimentTag = (
-      <div className="bg-green-700 text-white px-2 py-1 rounded mr-2">
+      <div className="inline-block bg-green-700 text-white px-1 py-0.5 rounded ml-2 text-xs">
         Positive
       </div>
     );
   } else if (sentiment < 0) {
     sentimentTag = (
-      <div className="bg-red-700 text-white px-2 py-1 rounded mr-2">
+      <div className="inline-block bg-red-700 text-white px-1 py-0.5 rounded ml-2 text-xs">
         Negative
+      </div>
+    );
+  } else {
+    sentimentTag = (
+      <div className="inline-block bg-gray-400 text-white px-1 py-0.5 rounded ml-2 text-xs">
+        Neutral
       </div>
     );
   }
@@ -124,7 +130,7 @@ function Post({
             height={30}
           ></img>
           <span className="font-bold">{name}</span>
-          <div className="flex-grow">{sentimentTag}</div>
+          <div className="flex-grow">{sentimentTag || "(Neutral)"}</div>
           <button
             onClick={() => {
               // adding a check so that a user does not send a text to itself
