@@ -40,14 +40,14 @@ function PostModal({ isModalOpen, setIsModalOpen }) {
       toast.dismiss(toastId);
       return;
     }
-
+    // putting all the data received into a form
     const formData = new FormData();
     formData.append("title", title);
     formData.append("content", content);
     formData.append("fileType", fileType);
     formData.append("file", file);
     formData.append("category", category);
-
+    // sending the postdata to database
     await axios
       .post(`${BASE_URL}/addPost`, formData)
       .then((res) => {

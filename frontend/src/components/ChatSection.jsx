@@ -140,7 +140,8 @@ function Chats({ recieverImage, messages }) {
           divClass = "flex m-1 flex-row-reverse";
           image = recieverImage;
         } else {
-          msgClass = "bg-gray-400 dark:bg-gray-600 rounded-xl p-2 flex";
+          msgClass =
+            "text-white bg-blue-400 dark:bg-blue-600 rounded-xl p-2 flex";
         }
         return (
           <div key={key} className={divClass}>
